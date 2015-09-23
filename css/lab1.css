@@ -1,0 +1,23 @@
+.bg-info {
+  padding: 10px;
+}
+
+.cadre {
+  padding: 20px;
+  border: 1px solid #E1E1E8;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+#pos {
+  padding: 6px;
+  border: 1px solid #E1E1E8;
+  border-radius: 4px;
+}
+
+.name {
+  color: white;
+  font-family: Impact;
+  list-style-type:none;
+  padding: 2px;
+}

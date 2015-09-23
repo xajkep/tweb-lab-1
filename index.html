@@ -12,24 +12,7 @@
     <!-- Load Chance -->
     <script src="js/chance.min.js"></script>
 
-    <style media="screen">
-      .bg-info {
-        padding: 10px;
-      }
-
-      .cadre {
-        padding: 20px;
-        border: 1px solid #E1E1E8;
-        border-radius: 4px;
-        margin-bottom: 20px;
-      }
-
-      #pos {
-        padding: 6px;
-        border: 1px solid #E1E1E8;
-        border-radius: 4px;
-      }
-    </style>
+    <link rel="stylesheet" href="css/lab1.css">
   </head>
 
   <body>
@@ -44,7 +27,8 @@
           </ul>
         </div>
         <p id="names" class="bg-info">
-            random name
+          <ul id="names">
+          </ul>
         </p>
         <p id="data" class="bg-info"></p>
 
@@ -62,51 +46,10 @@
         </table>
       </div>
 
-          <button class="btn btn-primary">Show alert</button>
-          <button  class="btn btn-default">Toggle student</button>
+          <button id="btnAlert" class="btn btn-primary">Show alert</button>
+          <button id="btnToggle" class="btn btn-default">Toggle student</button>
           <span id="pos" class="pull-right">pos</span>
     </div>
-    <script>
-      var counter = 1;
-
-      $(document).on('mousemove', function(e) {
-        $('#pos').text(e.pageX + ', ' + e.pageY);
-
-        $('#names').html('');
-        for (i = 0; i < counter; i++) {
-          var gender = chance.gender();
-          var first = chance.first({'gender':gender});
-
-          var res = "<span style='color: ";
-
-          res += gender === "Female" ? "blue" : "red";
-
-          res += "'>" + first + ' ' + chance.last() + '</span><br/>'
-
-          $('#names').html($('#names').html() + res);
-        }
-      });
-
-      function refreshClock() {
-        $('#clock').text(Date());
-      }
-
-      setInterval(refreshClock, 1000);
-
-      $(document).keydown(function(e) {
-        if (e.which == 16) {
-          counter++;
-        }
-      });
-
-      $.getJSON('./rooms.json', function( data ) {
-        var rooms = "";
-        $.each( data, function( key, val ) {
-          rooms += key + " - " + val + "<br/>";
-        });
-
-        $('#data').html(rooms);
-      });
-    </script>
+    <script src="js/lab1.js"></script>
   </body>
 </html>
