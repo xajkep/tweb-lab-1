@@ -1,0 +1,112 @@
+<!DOCTYPE>
+<html ng-app="lab1App">
+  <head>
+    <title>Lab 1</title>
+
+    <script src="./js/jquery.min.js"></script>
+
+    <!-- Twitter Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+
+    <!-- Load Chance -->
+    <script src="js/chance.min.js"></script>
+
+    <style media="screen">
+      .bg-info {
+        padding: 10px;
+      }
+
+      .cadre {
+        padding: 20px;
+        border: 1px solid #E1E1E8;
+        border-radius: 4px;
+        margin-bottom: 20px;
+      }
+
+      #pos {
+        padding: 6px;
+        border: 1px solid #E1E1E8;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>A first look at JS !</h1>
+      <hr/>
+      <div class="container">
+        <div class="cadre">
+          <ul>
+            <li>When you move the mouse, the coordinates should displayed in the sticky footer.</li>
+            <li>...</li>
+          </ul>
+        </div>
+        <p id="names" class="bg-info">
+            random name
+        </p>
+        <p id="data" class="bg-info"></p>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr class="bg-primary">
+              <th>Clock</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="clock">Date</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+          <button class="btn btn-primary">Show alert</button>
+          <button  class="btn btn-default">Toggle student</button>
+          <span id="pos" class="pull-right">pos</span>
+    </div>
+    <script>
+      var counter = 1;
+
+      $(document).on('mousemove', function(e) {
+        $('#pos').text(e.pageX + ', ' + e.pageY);
+
+        $('#names').html('');
+        for (i = 0; i < counter; i++) {
+          var gender = chance.gender();
+          var first = chance.first({'gender':gender});
+
+          var res = "<span style='color: ";
+
+          res += gender === "Female" ? "blue" : "red";
+
+          res += "'>" + first + ' ' + chance.last() + '</span><br/>'
+
+          $('#names').html($('#names').html() + res);
+        }
+      });
+
+      function refreshClock() {
+        $('#clock').text(Date());
+      }
+
+      setInterval(refreshClock, 1000);
+
+      $(document).keydown(function(e) {
+        if (e.which == 16) {
+          counter++;
+        }
+      });
+
+      $.getJSON('./rooms.json', function( data ) {
+        var rooms = "";
+        $.each( data, function( key, val ) {
+          rooms += key + " - " + val + "<br/>";
+        });
+
+        $('#data').html(rooms);
+      });
+    </script>
+  </body>
+</html>
